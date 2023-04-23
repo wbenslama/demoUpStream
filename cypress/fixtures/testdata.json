@@ -1,0 +1,17 @@
+{
+    "envRec": {
+       "baseUrl": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login",
+       "username": "Admin",
+       "password": "admin123" 
+    },
+    "envRecDynm": {
+       "baseUrl": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login",
+       "username": "RobotEnvRecDynm",
+       "password": "Robot123456*" 
+    },
+    "envRecInteg": {
+      "baseUrl": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login",
+      "username": "RobotEnvRecDynm",
+      "password": "Robot123456*" 
+   }
+}
