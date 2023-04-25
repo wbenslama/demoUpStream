@@ -14,3 +14,6 @@ Cypress Environement install & setup :
 	
  Install cypress plagin :  npm install -D @cypress/xpath
  install yaml file : npm install cypress-yaml --save-dev
+
+
+ @ARIDHI Hichem
