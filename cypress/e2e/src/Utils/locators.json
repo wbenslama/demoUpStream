@@ -1,10 +1,18 @@
 {
-    "logPage": {
-       "usernameInput": "//input[@name='username']",
-       "passwordInput": "//input[@name='password']" ,
-       "submitButton": "//*[@id='app']/div[1]/div/div[1]/div/div[2]/div[2]/form/div[3]/button"
+    "contactPage": {
+       "usernameInput": "//input[@id='first-name']",
+       "lastnameInput": "//input[@id='last-name']" ,
+       "companyInput" : "//input[@id='company']" ,
+       "phoneInput"   : "//input[@id='phone']" ,
+       "titleInput"   : "//input[@id='message-title']" ,
+       "messageInput" : "//textarea[@id='message']" ,
+       "submitButton" : "//*[@id='submit-button']",
+       "genreSelect"  : "//*[@id='gender']",
+       "contactForm"  : "//*[@id='contact-form']"
+       
     },
-    "logout": {
-      "logoutButton": "#logout-button"
+    "result": {
+      "successMsg"  : "//*[@id='popin-message']",
+      "failureMsg": "#logout-button"
     }
 }

@@ -1,6 +1,6 @@
 {
     "envRec": {
-       "baseUrl": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login",
+       "baseUrl": "https://usptestqa.pages.dev/fake-contact",
        "username": "Admin",
        "password": "admin123" 
     },
@@ -10,8 +10,10 @@
        "password": "Robot123456*" 
     },
     "envRecInteg": {
-      "baseUrl": "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login",
-      "username": "RobotEnvRecDynm",
-      "password": "Robot123456*" 
+      "baseUrl": "https://dummyapi.io/data/v1/user",
+      "appId": "624c9429450430b574dcf17c",
+      "getUser":"user",
+      "createUser":"user/create",
+      "upDateUser":"user/:id"
    }
 }

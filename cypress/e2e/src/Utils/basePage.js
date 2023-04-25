@@ -4,11 +4,13 @@ class BasePage {
         this.ele = null;
         this.data=null;
         this.config=null;
+        this.user=null;
       }
     
     beforeEachHook() {
       const   data = this.getDataJsonFile()
       const   config = this.getBaseConfigFile()
+
       cy.log('start test hook');  
          if(config.Recette == "true")
          {
@@ -39,6 +41,12 @@ class BasePage {
       this.config = require('../../config/config.json')
       return this.config;
     }
+    
+    getUserData(){
+      this.user = require('../../../fixtures/userDataOutput.json')
+      return this.user;
+    }
+
 
     afterEachHook() {
       cy.log('end test');
