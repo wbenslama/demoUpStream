@@ -4,13 +4,9 @@ jobs:
  cypress-run:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run Cypress tests
-        uses: cypress-io/github-action@v4.1.0
-        with:
-          browser: chrome
-          start: npm start
+       - name: Checkout
+         uses: actions/checkout@v3.5.2
+       - name: Run Cypress tests
+         uses: cypress-io/github-action@v4.1.0
+         with:
+          start: npm run
