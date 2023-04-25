@@ -1,13 +1,16 @@
 name: Demo upStream Test
-on: [pull_request]
+on: [push ,pull_request]
 jobs:
- cypress-test-upstream-run:
+ cypress-run:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Cypress.io
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Cypress tests
         uses: cypress-io/github-action@v2
         with:
+          browser: chrome
           start: npm start
-      
