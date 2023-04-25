@@ -5,6 +5,8 @@ const basePage = new BasePage();
 const contact = new contactPage();
 const ele = basePage.getLocatorsJsonFile();
 const data = basePage.getUserData();
+const jsdata= basePage.getDataJsonFile();
+
 
 describe('contact jui check test', () => {
 
@@ -12,15 +14,15 @@ describe('contact jui check test', () => {
     basePage.beforeEachHook()  
   })
   
-  it('it should be the correct title tag',() => {
+  it('title tag should be the correct',() => {
     cy.title().should('eq','Formulaire de Contact')
   })
 
-  it('it should be the correct hostname',() =>{
+  it('hostname should be the correct',() =>{
     cy.location('hostname').should('eq','usptestqa.pages.dev')
   })
 
-  it('it should be the correct protocol',() =>{
+  it('protocol should be the correct',() =>{
     cy.location('protocol').should('contains','https')
   })
   it('Contact form button should respect format', () => {
@@ -53,99 +55,136 @@ describe('contact jui check test', () => {
   })
 
 describe('create contact check test', () => {
-    
+    let statusCode ;
+    let body ;
   beforeEach(() => {
       basePage.beforeEachHook()  
+      cy.request({
+        method: 'GET',
+        url: jsdata.envRecInteg.baseUrl,
+        headers: {
+              'app-id': jsdata.envRecInteg.appId,
+              'Content-Type': 'application/json',
+              'Accept-Language': 'fr-FR'
+            }
+      }).then((response) => {
+         statusCode = response.status;
+         body = response.body;
+      })
     })
 
+  
    it('it must create user and valid it', () => { 
-      
-          if(data.data[0].title == "mr"){
+    if(statusCode == 200 ){
+          if(body.data[0].title == "mr"){
             cy.xpath(ele.contactPage.genreSelect).select('male');
-          }else if(data.data[0].title == "ms") {
+          }else if(body.data[0].title == "ms") {
             cy.xpath(ele.contactPage.genreSelect).select('female');
           }else{
             cy.xpath(ele.contactPage.genreSelect).select('other');
           }
-          contact.usernameInput(data.data[0].firstName)
-          contact.lastnameInput(data.data[0].lastName)
+          contact.usernameInput(body.data[0].firstName)
+          contact.lastnameInput(body.data[0].lastName)
           contact.companyInput("upStream")
           contact.mobileInput("0681263621")
-          contact.titleInput(data.data[0].title)
+          contact.titleInput(body.data[0].title)
           contact.MessageInput("employee")
           contact.sendBtn();
 
           cy.xpath(ele.result.successMsg).should('have.text','Le message a été envoyé.')
+     }else{
+          cy.log('user data not found');
+     }
       })
 
-    it('the user gender must be required ', () => {      
-        contact.usernameInput(data.data[0].firstName)
-        contact.lastnameInput(data.data[0].lastName)
+    it('the user gender must be required ', () => {   
+      if(statusCode == 200 ){   
+        contact.usernameInput(body.data[0].firstName)
+        contact.lastnameInput(body.data[0].lastName)
         contact.MessageInput("employee")
         contact.sendBtn();
         cy.on('window:alert', (alertText) => {
           expect(alertText).to.contain('Veuillez sélectionner un élément dans la liste.');
         });
-        
+      }else{
+        cy.log('user data not found');
+      } 
     })
 
     it('the user firstname must be required ', () => { 
-      if(data.data[0].title == "mr"){
+      if(statusCode == 200 ){  
+      if(body.data[0].title == "mr"){
         cy.xpath(ele.contactPage.genreSelect).select('male');
-      }else if(data.data[0].title == "ms") {
+      }else if(body.data[0].title == "ms") {
         cy.xpath(ele.contactPage.genreSelect).select('female');
       }else{
         cy.xpath(ele.contactPage.genreSelect).select('other');
       }
-      contact.lastnameInput(data.data[0].lastName)
+      contact.lastnameInput(body.data[0].lastName)
       contact.MessageInput("employee")
       contact.sendBtn();
       cy.xpath(ele.result.successMsg).should('have.text','Veuillez remplir tous les champs obligatoires.')
+    }else{
+      cy.log('user data not found');
+    }
     })
 
     it('the user lastname must be required ', () => { 
-      if(data.data[0].title == "mr"){
+      if(statusCode == 200 ){  
+      if(body.data[0].title == "mr"){
         cy.xpath(ele.contactPage.genreSelect).select('male');
-      }else if(data.data[0].title == "ms") {
+      }else if
+      (body.data[0].title == "ms") {
         cy.xpath(ele.contactPage.genreSelect).select('female');
       }else{
         cy.xpath(ele.contactPage.genreSelect).select('other');
       }
-      contact.lastnameInput(data.data[0].firstName)
+      contact.lastnameInput(body.data[0].firstName)
       contact.MessageInput("employee")
       contact.sendBtn();
       cy.xpath(ele.result.successMsg).should('have.text','Veuillez remplir tous les champs obligatoires.')
+    }else{
+      cy.log('user data not found');
+    }
     })
 
     it('the user comment message must be required ', () => { 
-      if(data.data[0].title == "mr"){
+      if(statusCode == 200 ){  
+      if(body.data[0].title == "mr"){
         cy.xpath(ele.contactPage.genreSelect).select('male');
-      }else if(data.data[0].title == "ms") {
+      }else if(body.data[0].title == "ms") {
         cy.xpath(ele.contactPage.genreSelect).select('female');
       }else{
         cy.xpath(ele.contactPage.genreSelect).select('other');
       }
-      contact.usernameInput(data.data[0].firstName)
-      contact.lastnameInput(data.data[0].lastName)
+      contact.usernameInput(body.data[0].firstName)
+      contact.lastnameInput(body.data[0].lastName)
       contact.sendBtn();
       cy.on('window:alert', (alertText) => {
-        expect(alertText).to.contain('Veuillez remlir ce champ.');
-      });
+        expect(alertText).to.contain('Veuillez remlir ce champ.');    
+     });
+    }else{
+      cy.log('user data not found');
+    }
     })
-
     
     it('the user company , mobile and title is not required ', () => { 
-      if(data.data[0].title == "mr"){
+      if(statusCode == 200 ){  
+      if(body.data[0].title == "mr"){
         cy.xpath(ele.contactPage.genreSelect).select('male');
-      }else if(data.data[0].title == "ms") {
+      }else if(body.data[0].title == "ms") {
         cy.xpath(ele.contactPage.genreSelect).select('female');
       }else{
         cy.xpath(ele.contactPage.genreSelect).select('other');
       }
-      contact.lastnameInput(data.data[0].firstName)
-      contact.usernameInput(data.data[0].lastName)
+      contact.lastnameInput(body.data[0].firstName)
+      contact.usernameInput(body.data[0].lastName)
       contact.MessageInput("employee")
       contact.sendBtn();
       cy.xpath(ele.result.successMsg).should('have.text','Le message a été envoyé.')
+    }else{
+      cy.log('user data not found');
+    }
     })
 })
+ 

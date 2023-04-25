@@ -28,22 +28,22 @@ class BasePage {
     }
 
     getLocatorsJsonFile() {
-      this.ele = require('./locators.json')
+      this.ele = require('../../fixtures/locators.json')
       return this.ele;
     }
 
     getDataJsonFile() {
-      this.data = require('../../../fixtures/testdata.json')
+      this.data = require('../../fixtures/testdata.json')
       return this.data;
     }
     
     getBaseConfigFile() {
-      this.config = require('../../config/config.json')
+      this.config = require('../../fixtures/config.json')
       return this.config;
     }
     
     getUserData(){
-      this.user = require('../../../fixtures/userDataOutput.json')
+      this.user = require('../../fixtures/userDataOutput.json')
       return this.user;
     }
 
