@@ -1,13 +1,13 @@
-name: demo upStream
+name: Demo upStream Test
 on: [pull_request]
 jobs:
- cypress-run:
-    runs-on: windows-latest
+ cypress-test-upstream-run:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3.5.2
+        uses: actions/checkout@v2
       - name: Cypress.io
-        uses: cypress-io/github-action@v2.9.7
+        uses: cypress-io/github-action@v2
         with:
-          start: npx cypress run
+          start: npm start
       
