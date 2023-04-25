@@ -8,7 +8,7 @@ const data = basePage.getUserData();
 const jsdata= basePage.getDataJsonFile();
 
 
-describe('contact jui check test', () => {
+describe('contact form format check tests', () => {
 
   beforeEach(() => {
     basePage.beforeEachHook()  
@@ -30,7 +30,7 @@ describe('contact jui check test', () => {
     .should('have.css', 'background', 'rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box');
     })
   
-  it('Page contact should contain all the invoked text and input textarea', () =>{
+  it('page contact should contain all the invoked text and input text erea', () =>{
    cy.get('body')
    .invoke('text')
    .then((text) => {
@@ -48,7 +48,7 @@ describe('contact jui check test', () => {
     cy.xpath(ele.contactPage.submitButton).should('have.css', 'background', 'rgba(0, 0, 0, 0) linear-gradient(to right bottom, rgb(198, 99, 255), rgb(90, 185, 234)) repeat scroll 0% 0% / auto padding-box border-box');
     })
 
-  it('Comment texterea should respect format', () => {
+  it('comment text erea should respect format', () => {
     cy.xpath(ele.contactPage.submitButton).should('have.css', 'font-family', 'Arial')
     .should('have.css', 'font-size', '16px');
     })
@@ -59,6 +59,8 @@ describe('create contact check test', () => {
     let body ;
   beforeEach(() => {
       basePage.beforeEachHook()  
+      // call get methode and set app-id oheadrs 
+      // must verify code.status==200 before continu test 
       cy.request({
         method: 'GET',
         url: jsdata.envRecInteg.baseUrl,
@@ -76,13 +78,7 @@ describe('create contact check test', () => {
   
    it('it must create user and valid it', () => { 
     if(statusCode == 200 ){
-          if(body.data[0].title == "mr"){
-            cy.xpath(ele.contactPage.genreSelect).select('male');
-          }else if(body.data[0].title == "ms") {
-            cy.xpath(ele.contactPage.genreSelect).select('female');
-          }else{
-            cy.xpath(ele.contactPage.genreSelect).select('other');
-          }
+          contact.selectGenre(body.data[0].title)
           contact.usernameInput(body.data[0].firstName)
           contact.lastnameInput(body.data[0].lastName)
           contact.companyInput("upStream")
@@ -95,7 +91,7 @@ describe('create contact check test', () => {
      }else{
           cy.log('user data not found');
      }
-      })
+     })
 
     it('the user gender must be required ', () => {   
       if(statusCode == 200 ){   
@@ -113,13 +109,7 @@ describe('create contact check test', () => {
 
     it('the user firstname must be required ', () => { 
       if(statusCode == 200 ){  
-      if(body.data[0].title == "mr"){
-        cy.xpath(ele.contactPage.genreSelect).select('male');
-      }else if(body.data[0].title == "ms") {
-        cy.xpath(ele.contactPage.genreSelect).select('female');
-      }else{
-        cy.xpath(ele.contactPage.genreSelect).select('other');
-      }
+      contact.selectGenre(body.data[0].title)
       contact.lastnameInput(body.data[0].lastName)
       contact.MessageInput("employee")
       contact.sendBtn();
@@ -131,14 +121,7 @@ describe('create contact check test', () => {
 
     it('the user lastname must be required ', () => { 
       if(statusCode == 200 ){  
-      if(body.data[0].title == "mr"){
-        cy.xpath(ele.contactPage.genreSelect).select('male');
-      }else if
-      (body.data[0].title == "ms") {
-        cy.xpath(ele.contactPage.genreSelect).select('female');
-      }else{
-        cy.xpath(ele.contactPage.genreSelect).select('other');
-      }
+      contact.selectGenre(body.data[0].title)
       contact.lastnameInput(body.data[0].firstName)
       contact.MessageInput("employee")
       contact.sendBtn();
@@ -150,13 +133,7 @@ describe('create contact check test', () => {
 
     it('the user comment message must be required ', () => { 
       if(statusCode == 200 ){  
-      if(body.data[0].title == "mr"){
-        cy.xpath(ele.contactPage.genreSelect).select('male');
-      }else if(body.data[0].title == "ms") {
-        cy.xpath(ele.contactPage.genreSelect).select('female');
-      }else{
-        cy.xpath(ele.contactPage.genreSelect).select('other');
-      }
+      contact.selectGenre(body.data[0].title)
       contact.usernameInput(body.data[0].firstName)
       contact.lastnameInput(body.data[0].lastName)
       contact.sendBtn();
@@ -170,13 +147,7 @@ describe('create contact check test', () => {
     
     it('the user company , mobile and title is not required ', () => { 
       if(statusCode == 200 ){  
-      if(body.data[0].title == "mr"){
-        cy.xpath(ele.contactPage.genreSelect).select('male');
-      }else if(body.data[0].title == "ms") {
-        cy.xpath(ele.contactPage.genreSelect).select('female');
-      }else{
-        cy.xpath(ele.contactPage.genreSelect).select('other');
-      }
+      contact.selectGenre(body.data[0].title)
       contact.lastnameInput(body.data[0].firstName)
       contact.usernameInput(body.data[0].lastName)
       contact.MessageInput("employee")

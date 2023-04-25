@@ -33,5 +33,15 @@ class contactPage {
     sendBtn() {
         return cy.xpath(ele.contactPage.submitButton).click()
     }
+
+    selectGenre(genre) {
+        if( genre== "mr"){
+           return cy.xpath(ele.contactPage.genreSelect).select('male');
+        }else if( genre == "ms") {
+           return cy.xpath(ele.contactPage.genreSelect).select('female');
+        }else{
+           return cy.xpath(ele.contactPage.genreSelect).select('other');
+        }
+    }
 }
 export default contactPage;
