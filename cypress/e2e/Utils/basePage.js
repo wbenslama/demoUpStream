@@ -26,6 +26,7 @@ class BasePage {
           cy.log('no environement is defined');
          }
     }
+    ///comment
 
     getLocatorsJsonFile() {
       this.ele = require('../../fixtures/locators.json')
